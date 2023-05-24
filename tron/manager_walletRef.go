@@ -23,10 +23,10 @@ import (
 	"github.com/blocktree/openwallet/v2/hdkeystore"
 	"github.com/blocktree/openwallet/v2/openwallet"
 	"github.com/bndr/gotabulate"
-	"github.com/btcsuite/btcutil/hdkeychain"
+	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 )
 
-//GetWallets 获取钱包列表
+// GetWallets 获取钱包列表
 func (wm *WalletManager) GetWallets() ([]*openwallet.Wallet, error) {
 
 	wallets, err := openwallet.GetWalletsByKeyDir(wm.Config.keyDir)
@@ -43,7 +43,7 @@ func (wm *WalletManager) GetWallets() ([]*openwallet.Wallet, error) {
 
 }
 
-//GetWalletInfo 获取钱包列表
+// GetWalletInfo 获取钱包列表
 func (wm *WalletManager) GetWalletInfo(walletID string) (*openwallet.Wallet, error) {
 
 	wallets, err := wm.GetWallets()
@@ -63,7 +63,7 @@ func (wm *WalletManager) GetWalletInfo(walletID string) (*openwallet.Wallet, err
 	return nil, fmt.Errorf("The wallet that your given name is not exist")
 }
 
-//CreateNewWallet 创建钱包
+// CreateNewWallet 创建钱包
 func (wm *WalletManager) CreateNewWallet(name, password string) (*openwallet.Wallet, string, error) {
 
 	var (
@@ -113,7 +113,7 @@ func (wm *WalletManager) CreateNewWallet(name, password string) (*openwallet.Wal
 }
 
 // -------------------------------------------------- Functions ---------------------------------------------
-//打印钱包列表
+// 打印钱包列表
 func (wm *WalletManager) printWalletList(list []*openwallet.Wallet) {
 
 	tableInfo := make([][]interface{}, 0)

@@ -26,11 +26,10 @@ import (
 	"time"
 
 	"github.com/blocktree/go-owcdrivers/addressEncoder"
-	"github.com/blocktree/go-owcrypt"
-	"github.com/blocktree/tron-adapter/tron/grpc-gateway/core"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/imroc/req"
+	"github.com/james-ray/tron-adapter/tron/grpc-gateway/core"
 	"github.com/shopspring/decimal"
 )
 
@@ -77,7 +76,7 @@ func getTxHash(tx *core.Transaction) (txHash []byte, err error) {
 	return txHash, nil
 }
 
-//Deprecated
+// Deprecated
 func (wm *WalletManager) CreateTransactionRef(toAddress, ownerAddress string, amount string) (txRawHex string, err error) {
 
 	// addressEncoder.AddressDecode return 20 bytes of the center of Address
@@ -408,7 +407,7 @@ func (wm *WalletManager) validSignedTokenTransaction(txHash []byte, signature []
 	return nil
 }
 
-//Deprecated
+// Deprecated
 func (wm *WalletManager) ValidSignedTransactionRef(txHex string) error {
 
 	tx := &core.Transaction{}
@@ -595,13 +594,13 @@ func (wm *WalletManager) BroadcastTransaction(raw string) (string, error) {
 	return txID, nil
 }
 
-//SendTransaction 发送交易
+// SendTransaction 发送交易
 func (wm *WalletManager) SendTransaction(walletID, to string, amount decimal.Decimal, password string, feesInSender bool) ([]string, error) {
 
 	return nil, nil
 }
 
-//deprecated
+// deprecated
 func (wm *WalletManager) Getbalance(address string) (*AddrBalance, error) {
 	account, err := wm.GetAccount(address)
 	if err != nil {
@@ -679,7 +678,7 @@ func debugPrintTx(txRawhex string) {
 }
 */
 
-//GetTransactionFeeEstimated 预计手续费
+// GetTransactionFeeEstimated 预计手续费
 func (wm *WalletManager) GetTransactionFeeEstimated(from string, data string) (*txFeeInfo, error) {
 
 	//:计算矿工费
@@ -710,7 +709,7 @@ func (wm *WalletManager) GetTransactionFeeEstimated(from string, data string) (*
 	return feeInfo, nil
 }
 
-//IsEnoughEnergyToTransferTRC20 是否足够能量转账TRC20
+// IsEnoughEnergyToTransferTRC20 是否足够能量转账TRC20
 func (wm *WalletManager) IsEnoughEnergyToTransferTRC20(address string, trxBalance *big.Int) (flag bool, energyRest int64, feeMini int64) {
 	feeMini = wm.Config.FeeMini
 	res, err := wm.GetAccountResource(address)

@@ -19,8 +19,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/blocktree/openwallet/v2/common"
-	"github.com/blocktree/tron-adapter/tron/grpc-gateway/core"
 	"github.com/golang/protobuf/proto"
+	"github.com/james-ray/tron-adapter/tron/grpc-gateway/core"
 	"math/big"
 	"sort"
 	"strings"
@@ -33,7 +33,7 @@ import (
 	// "github.com/shopspring/decimal"
 )
 
-//TransactionDecoder for Interface TransactionDecode
+// TransactionDecoder for Interface TransactionDecode
 type TransactionDecoder struct {
 	openwallet.TransactionDecoderBase
 	wm *WalletManager //钱包管理者
@@ -76,14 +76,14 @@ func InsertSignatureIntoRawTransaction(txHex string, signature string) (string, 
 
 }
 
-//NewTransactionDecoder 交易单解析器
+// NewTransactionDecoder 交易单解析器
 func NewTransactionDecoder(wm *WalletManager) *TransactionDecoder {
 	decoder := TransactionDecoder{}
 	decoder.wm = wm
 	return &decoder
 }
 
-//CreateRawTransaction 创建交易单
+// CreateRawTransaction 创建交易单
 func (decoder *TransactionDecoder) CreateSimpleTransaction(wrapper openwallet.WalletDAI, rawTx *openwallet.RawTransaction) error {
 
 	var (
@@ -202,7 +202,7 @@ func (decoder *TransactionDecoder) CreateSimpleTransaction(wrapper openwallet.Wa
 	return nil
 }
 
-//CreateTokenTransaction 创建代币交易单
+// CreateTokenTransaction 创建代币交易单
 func (decoder *TransactionDecoder) CreateTokenTransaction(wrapper openwallet.WalletDAI, rawTx *openwallet.RawTransaction) error {
 
 	var (
@@ -368,7 +368,7 @@ func (decoder *TransactionDecoder) CreateRawTransaction(wrapper openwallet.Walle
 	//contract To Do
 }
 
-//SignRawTransaction 签名交易单
+// SignRawTransaction 签名交易单
 func (decoder *TransactionDecoder) SignRawTransaction(wrapper openwallet.WalletDAI, rawTx *openwallet.RawTransaction) error {
 
 	if rawTx.Signatures == nil || len(rawTx.Signatures) == 0 {
@@ -416,7 +416,7 @@ func (decoder *TransactionDecoder) SignRawTransaction(wrapper openwallet.WalletD
 	return nil
 }
 
-//VerifyRawTransaction 验证交易单，验证交易单并返回加入签名后的交易单
+// VerifyRawTransaction 验证交易单，验证交易单并返回加入签名后的交易单
 func (decoder *TransactionDecoder) VerifyRawTransaction(wrapper openwallet.WalletDAI, rawTx *openwallet.RawTransaction) error {
 	//检测交易单基本字段
 	err := CheckRawTransaction(rawTx)
@@ -456,7 +456,7 @@ func (decoder *TransactionDecoder) VerifyRawTransaction(wrapper openwallet.Walle
 	return nil
 }
 
-//SubmitRawTransaction 广播交易单
+// SubmitRawTransaction 广播交易单
 func (decoder *TransactionDecoder) SubmitRawTransaction(wrapper openwallet.WalletDAI, rawTx *openwallet.RawTransaction) (*openwallet.Transaction, error) {
 
 	if len(rawTx.RawHex) == 0 {
@@ -507,7 +507,7 @@ func (decoder *TransactionDecoder) SubmitRawTransaction(wrapper openwallet.Walle
 	return &tx, nil
 }
 
-//CreateSummaryRawTransaction 创建汇总交易，返回原始交易单数组
+// CreateSummaryRawTransaction 创建汇总交易，返回原始交易单数组
 func (decoder *TransactionDecoder) CreateSummaryRawTransaction(wrapper openwallet.WalletDAI, sumRawTx *openwallet.SummaryRawTransaction) ([]*openwallet.RawTransaction, error) {
 	var (
 		rawTxWithErrArray []*openwallet.RawTransactionWithError
@@ -531,7 +531,7 @@ func (decoder *TransactionDecoder) CreateSummaryRawTransaction(wrapper openwalle
 	return rawTxArray, nil
 }
 
-//CreateSummaryRawTransactionWithError 创建汇总交易，返回能原始交易单数组（包含带错误的原始交易单）
+// CreateSummaryRawTransactionWithError 创建汇总交易，返回能原始交易单数组（包含带错误的原始交易单）
 func (decoder *TransactionDecoder) CreateSummaryRawTransactionWithError(wrapper openwallet.WalletDAI, sumRawTx *openwallet.SummaryRawTransaction) ([]*openwallet.RawTransactionWithError, error) {
 	if sumRawTx.Coin.IsContract {
 		return decoder.CreateTokenSummaryRawTransaction(wrapper, sumRawTx)
@@ -540,7 +540,7 @@ func (decoder *TransactionDecoder) CreateSummaryRawTransactionWithError(wrapper 
 	}
 }
 
-//CreateSimpleSummaryRawTransaction 创建主币汇总交易
+// CreateSimpleSummaryRawTransaction 创建主币汇总交易
 func (decoder *TransactionDecoder) CreateSimpleSummaryRawTransaction(wrapper openwallet.WalletDAI, sumRawTx *openwallet.SummaryRawTransaction) ([]*openwallet.RawTransactionWithError, error) {
 
 	var (
@@ -656,7 +656,7 @@ func (decoder *TransactionDecoder) CreateSimpleSummaryRawTransaction(wrapper ope
 	return rawTxArray, nil
 }
 
-//CreateTokenSummaryRawTransaction 创建代币汇总交易
+// CreateTokenSummaryRawTransaction 创建代币汇总交易
 func (decoder *TransactionDecoder) CreateTokenSummaryRawTransaction(wrapper openwallet.WalletDAI, sumRawTx *openwallet.SummaryRawTransaction) ([]*openwallet.RawTransactionWithError, error) {
 
 	var (
@@ -808,7 +808,7 @@ func (decoder *TransactionDecoder) CreateTokenSummaryRawTransaction(wrapper open
 			feesSupportScale, _ := decimal.NewFromString(sumRawTx.FeesSupportAccount.FeesSupportScale)
 			fixSupportAmount, _ := decimal.NewFromString(sumRawTx.FeesSupportAccount.FixSupportAmount)
 			//1 Energy = 140 SUN, 1 trx = 1000000 SUN, fees(trx) = Energy * 100000
-			fees := decimal.New(feeMini * 140, -decoder.wm.Decimal())
+			fees := decimal.New(feeMini*140, -decoder.wm.Decimal())
 
 			//优先采用固定支持数量
 			if fixSupportAmount.GreaterThan(decimal.Zero) {
@@ -894,7 +894,7 @@ func (decoder *TransactionDecoder) CreateTokenSummaryRawTransaction(wrapper open
 	return rawTxArray, nil
 }
 
-//createRawTransaction
+// createRawTransaction
 func (decoder *TransactionDecoder) createRawTransaction(
 	wrapper openwallet.WalletDAI,
 	rawTx *openwallet.RawTransaction,

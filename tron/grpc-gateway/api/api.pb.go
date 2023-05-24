@@ -7,7 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	core "github.com/blocktree/tron-adapter/tron/grpc-gateway/core"
+	core "github.com/james-ray/tron-adapter/tron/grpc-gateway/core"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	math "math"
@@ -986,7 +986,7 @@ func (m *TimePaginatedMessage) GetLimit() int64 {
 	return 0
 }
 
-//deprecated
+// deprecated
 type AccountNetMessage struct {
 	FreeNetUsed          int64            `protobuf:"varint,1,opt,name=freeNetUsed,proto3" json:"freeNetUsed,omitempty"`
 	FreeNetLimit         int64            `protobuf:"varint,2,opt,name=freeNetLimit,proto3" json:"freeNetLimit,omitempty"`
